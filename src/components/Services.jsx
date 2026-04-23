@@ -5,7 +5,7 @@ const services = [
     icon: FileSearch,
     title: 'Broker Price Opinion (BPO)',
     subtitle: 'Core Valuation Service',
-    desc: 'A California-licensed broker's written opinion of a property's fair market value — faster and more cost-effective than a formal appraisal, and legally recognized for a wide range of non-federally-related transactions.',
+    desc: `A California-licensed broker's written opinion of a property's fair market value — faster and more cost-effective than a formal appraisal, and legally recognized for a wide range of non-federally-related transactions.`,
     tags: ['Probate', 'Divorce', 'Bankruptcy', 'Trust Administration'],
     note: 'Only a licensed broker or agent may legally provide a BPO in CA.',
   },
