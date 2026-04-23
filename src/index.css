@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-slate-950 text-slate-300 font-sans antialiased; }
+  h1,h2,h3,h4 { @apply font-serif text-white; }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-slate-900
+           bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500
+           shadow-orange hover:shadow-orange-lg transition-all duration-300 hover:-translate-y-0.5
+           focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 focus:ring-offset-slate-900;
+  }
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-white
+           border border-white/20 hover:border-brand-500 hover:text-brand-400
+           transition-all duration-300 hover:-translate-y-0.5;
+  }
+  .card-glass {
+    @apply bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm
+           hover:bg-white/8 hover:border-brand-500/30 transition-all duration-300;
+  }
+  .section-label {
+    @apply inline-flex items-center gap-2 text-brand-400 text-xs font-bold uppercase tracking-widest mb-4;
+  }
+  .section-label::before {
+    content: '';
+    @apply block w-6 h-0.5 bg-brand-500;
+  }
+  .gradient-text {
+    @apply bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent;
+  }
+}
