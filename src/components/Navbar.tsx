@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import { Menu, X, Scale } from 'lucide-react'
 
+import { Link } from 'react-router-dom'
+
 const links = [
-  { label: 'Services',    href: '#services'    },
-  { label: 'Who We Serve',href: '#clients'     },
-  { label: 'Why a Broker',href: '#why-broker'  },
-  { label: 'Process',     href: '#process'     },
-  { label: 'Testimonials',href: '#testimonials'},
+  { label: 'Services',    href: '/services'    },
+  { label: 'Who We Serve',href: '/clients'     },
+  { label: 'Why a Broker',href: '/why-broker'  },
+  { label: 'Process',     href: '/process'     },
+  { label: 'Testimonials',href: '/testimonials'},
 ]
 
 export default function Navbar() {
@@ -25,33 +27,33 @@ export default function Navbar() {
     }`}>
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <a href="#hero" className="flex items-center gap-2 group">
+        <Link to="/" className="flex items-center gap-2 group">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center">
             <Scale className="w-4 h-4 text-white" />
           </div>
           <span className="font-serif text-xl font-bold text-white">
             Meridian<span className="text-brand-400"> Valuations</span>
           </span>
-        </a>
+        </Link>
 
         {/* Desktop links */}
         <ul className="hidden md:flex items-center gap-8">
           {links.map(l => (
             <li key={l.href}>
-              <a href={l.href}
+              <Link to={l.href}
                 className="text-sm font-medium text-slate-400 hover:text-brand-400 transition-colors duration-200 relative group">
                 {l.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-500 group-hover:w-full transition-all duration-300" />
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
 
         {/* CTA */}
         <div className="hidden md:block">
-          <a href="#contact" className="btn-primary text-sm py-3 px-6">
+          <Link to="/contact" className="btn-primary text-sm py-3 px-6">
             Get a Free Consultation
-          </a>
+          </Link>
         </div>
 
         {/* Mobile toggle */}
@@ -64,14 +66,14 @@ export default function Navbar() {
       {open && (
         <div className="md:hidden bg-slate-900 border-t border-white/10 px-6 py-4 flex flex-col gap-4">
           {links.map(l => (
-            <a key={l.href} href={l.href} onClick={() => setOpen(false)}
+            <Link key={l.href} to={l.href} onClick={() => setOpen(false)}
               className="text-slate-300 hover:text-brand-400 font-medium transition-colors">
               {l.label}
-            </a>
+            </Link>
           ))}
-          <a href="#contact" className="btn-primary text-sm py-3 text-center mt-2">
+          <Link to="/contact" onClick={() => setOpen(false)} className="btn-primary text-sm py-3 text-center mt-2">
             Get a Free Consultation
-          </a>
+          </Link>
         </div>
       )}
     </nav>
