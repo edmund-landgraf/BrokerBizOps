@@ -75,6 +75,27 @@ export default defineConfig({
                 res.end(err.message)
               }
             })
+          } else if (req.url === '/api/contact/submissions' && req.method === 'GET') {
+            try {
+              const backupsDir = path.resolve(process.cwd(), 'backups/submissions')
+              if (!fs.existsSync(backupsDir)) {
+                res.setHeader('Content-Type', 'application/json')
+                res.end(JSON.stringify([]))
+                return
+              }
+              
+              const files = fs.readdirSync(backupsDir).filter(f => f.endsWith('.json'))
+              const submissions = files.map(f => {
+                const content = fs.readFileSync(path.join(backupsDir, f), 'utf-8')
+                return JSON.parse(content)
+              }).sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+              
+              res.setHeader('Content-Type', 'application/json')
+              res.end(JSON.stringify(submissions))
+            } catch (err) {
+              res.statusCode = 500
+              res.end(JSON.stringify({ error: err.message }))
+            }
           } else {
             next()
           }

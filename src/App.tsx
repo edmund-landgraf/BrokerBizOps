@@ -10,7 +10,9 @@ import TestimonialsPage from './pages/TestimonialsPage'
 import ContactPage     from './pages/ContactPage'
 import PortalPage      from './pages/PortalPage'
 import AdminDocsPage   from './pages/AdminDocsPage'
+import AdminInboxPage  from './pages/AdminInboxPage'
 import RatesPage       from './pages/RatesPage'
+import AdminButton        from './components/AdminButton'
 
 function App() {
   return (
@@ -28,10 +30,12 @@ function App() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/portal" element={<PortalPage />} />
             <Route path="/admin/docs" element={<AdminDocsPage />} />
+            <Route path="/admin/inbox" element={<AdminInboxPage />} />
             <Route path="/rates" element={<RatesPage />} />
           </Routes>
         </main>
         <Footer />
+        <AdminButton />
       </div>
     </Router>
   )
