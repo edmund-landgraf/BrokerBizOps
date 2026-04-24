@@ -49,6 +49,32 @@ export default defineConfig({
                 res.end(err.message)
               }
             })
+          } else if (req.url === '/api/contact' && req.method === 'POST') {
+            let body = ''
+            req.on('data', chunk => { body += chunk })
+            req.on('end', () => {
+              try {
+                const submission = JSON.parse(body)
+                const backupsDir = path.resolve(process.cwd(), 'backups/submissions')
+                if (!fs.existsSync(backupsDir)) fs.mkdirSync(backupsDir, { recursive: true })
+                
+                const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
+                const id = Math.random().toString(36).substring(2, 9)
+                const filename = `contact_${timestamp}_${id}.json`
+                
+                fs.writeFileSync(path.join(backupsDir, filename), JSON.stringify({
+                  id,
+                  timestamp: new Date().toISOString(),
+                  ...submission
+                }, null, 2))
+                
+                res.setHeader('Content-Type', 'application/json')
+                res.end(JSON.stringify({ success: true, filename }))
+              } catch (err) {
+                res.statusCode = 500
+                res.end(err.message)
+              }
+            })
           } else {
             next()
           }

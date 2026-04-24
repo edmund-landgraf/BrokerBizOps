@@ -17,7 +17,24 @@ export default function Contact() {
   const [sent, setSent] = useState(false)
 
   const handle = e => setForm({ ...form, [e.target.name]: e.target.value })
-  const submit = e => { e.preventDefault(); setSent(true) }
+  const submit = async e => { 
+    e.preventDefault()
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form)
+      })
+      if (res.ok) {
+        setSent(true)
+      } else {
+        alert('There was an error sending your request. Please try again or call us directly.')
+      }
+    } catch (err) {
+      console.error('Submission error:', err)
+      alert('Network error. Please check your connection.')
+    }
+  }
 
   return (
     <section id="contact" className="py-28 bg-slate-950">
