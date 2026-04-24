@@ -10,6 +10,7 @@ import TestimonialsPage from './pages/TestimonialsPage'
 import ContactPage     from './pages/ContactPage'
 import PortalPage      from './pages/PortalPage'
 import AdminDocsPage   from './pages/AdminDocsPage'
+import RatesPage       from './pages/RatesPage'
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/portal" element={<PortalPage />} />
             <Route path="/admin/docs" element={<AdminDocsPage />} />
+            <Route path="/rates" element={<RatesPage />} />
           </Routes>
         </main>
         <Footer />

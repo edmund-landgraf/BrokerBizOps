@@ -9,6 +9,7 @@ const links = [
   { label: 'Why a Broker',href: '/why-broker'  },
   { label: 'Process',     href: '/process'     },
   { label: 'Testimonials',href: '/testimonials'},
+  { label: 'Rates',       href: '/rates'       },
   { label: 'Client Portal',href: '/portal'     },
   { label: 'Knowledge Base',href: '/admin/docs'},
 ]
@@ -31,17 +32,17 @@ export default function Navbar() {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 group">
           <img src={logo} alt="Sams Valuations" className="w-12 h-12 object-contain" />
-          <span className="font-serif text-2xl font-bold text-white">
+          <span className="font-serif text-xl font-bold text-white">
             Sams<span className="text-brand-400"> Valuations</span>
           </span>
         </Link>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="hidden md:flex items-center gap-5">
           {links.map(l => (
             <li key={l.href}>
               <Link to={l.href}
-                className="text-sm font-medium text-slate-400 hover:text-brand-400 transition-colors duration-200 relative group">
+                className="text-xs font-medium text-slate-400 hover:text-brand-400 transition-colors duration-200 relative group uppercase tracking-wider">
                 {l.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-500 group-hover:w-full transition-all duration-300" />
               </Link>
@@ -50,8 +51,8 @@ export default function Navbar() {
         </ul>
 
         {/* CTA */}
-        <div className="hidden md:block">
-          <Link to="/contact" className="btn-primary text-sm py-3 px-6">
+        <div className="hidden lg:block">
+          <Link to="/contact" className="btn-primary text-xs py-2.5 px-5">
             Get a Free Consultation
           </Link>
         </div>
