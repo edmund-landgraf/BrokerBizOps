@@ -5,7 +5,7 @@ To transition from a simple residential probate broker to a high-value B2B partn
 ## 1. New Service Verticals
 
 ### A. Financial Institutions & Servicers
-- **REO Disposition & Liquidation**: Handling the full lifecycle of bank-owned assets.
+- **REO Disposition & Liquidation**: Handling the full lifecycle of bank-owned assets.  
 - **Bulk BPOs**: High-volume market analysis for portfolio assessments.
 - **Property Preservation**: Stabilization and security for distressed assets.
 
