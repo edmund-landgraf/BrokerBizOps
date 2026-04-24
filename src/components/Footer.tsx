@@ -1,9 +1,28 @@
 import { Scale } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const links = {
-  Services: ['Broker Price Opinion', 'Portfolio Valuation', 'Litigation Support', 'Retrospective Valuation', 'REO Analysis'],
-  'Who We Serve': ['Probate Attorneys', 'Divorce Attorneys', 'Bankruptcy Trustees', 'Banks & Lenders', 'CPAs & Tax Advisors', 'Conservators'],
-  Company: ['About Us', 'Our Process', 'Testimonials', 'Contact Us'],
+  Services: [
+    { name: 'Broker Price Opinion', path: '/services' },
+    { name: 'Portfolio Valuation', path: '/services' },
+    { name: 'Litigation Support', path: '/services' },
+    { name: 'Retrospective Valuation', path: '/services' },
+    { name: 'REO Analysis', path: '/services' },
+  ],
+  'Who We Serve': [
+    { name: 'Probate Attorneys', path: '/clients' },
+    { name: 'Divorce Attorneys', path: '/clients' },
+    { name: 'Bankruptcy Trustees', path: '/clients' },
+    { name: 'Banks & Lenders', path: '/clients' },
+    { name: 'CPAs & Tax Advisors', path: '/clients' },
+    { name: 'Conservators', path: '/clients' },
+  ],
+  Company: [
+    { name: 'About Us', path: '/why-broker' },
+    { name: 'Our Process', path: '/process' },
+    { name: 'Testimonials', path: '/testimonials' },
+    { name: 'Contact Us', path: '/contact' },
+  ],
 }
 
 export default function Footer() {
@@ -34,8 +53,8 @@ export default function Footer() {
               <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-4">{heading}</h4>
               <ul className="space-y-2.5">
                 {items.map(item => (
-                  <li key={item}>
-                    <a href="#" className="text-slate-500 hover:text-brand-400 text-sm transition-colors">{item}</a>
+                  <li key={item.name}>
+                    <Link to={item.path} className="text-slate-500 hover:text-brand-400 text-sm transition-colors">{item.name}</Link>
                   </li>
                 ))}
               </ul>
@@ -50,8 +69,8 @@ export default function Footer() {
             CA Business & Professions Code §11302.
           </span>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-brand-400 transition-colors">Privacy</a>
-            <a href="#" className="hover:text-brand-400 transition-colors">Disclaimer</a>
+            <Link to="/" className="hover:text-brand-400 transition-colors">Privacy</Link>
+            <Link to="/" className="hover:text-brand-400 transition-colors">Disclaimer</Link>
           </div>
         </div>
       </div>

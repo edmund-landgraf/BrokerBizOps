@@ -1,4 +1,5 @@
 import { TrendingUp, Clock, Shield, Users, Award, FileText } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const stats = [
   { value: '500+', label: 'Properties Valued' },
@@ -47,13 +48,13 @@ export default function Hero() {
           </p>
 
           <div className="flex flex-wrap gap-4 mb-16">
-            <a href="#contact" className="btn-primary text-base">
+            <Link to="/contact" className="btn-primary text-base">
               <FileText className="w-5 h-5" />
               Request a BPO Today
-            </a>
-            <a href="#services" className="btn-outline text-base">
+            </Link>
+            <Link to="/services" className="btn-outline text-base">
               Explore Our Services
-            </a>
+            </Link>
           </div>
 
           {/* Trust badges */}
