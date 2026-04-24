@@ -16,12 +16,12 @@ export default function Hero() {
       <div className="absolute inset-0 opacity-10"
         style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&q=80)', backgroundSize: 'cover', backgroundPosition: 'center' }}
       />
-      {/* Orange glow orbs */}
+      {/* Gold glow orbs */}
       <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-brand-600/20 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl pointer-events-none" />
       {/* Grid overlay */}
       <div className="absolute inset-0 opacity-5"
-        style={{ backgroundImage: 'linear-gradient(rgba(249,115,22,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(249,115,22,.5) 1px, transparent 1px)', backgroundSize: '60px 60px' }}
+        style={{ backgroundImage: 'linear-gradient(rgba(197,160,89,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(197,160,89,.5) 1px, transparent 1px)', backgroundSize: '60px 60px' }}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-28 pb-20 w-full">

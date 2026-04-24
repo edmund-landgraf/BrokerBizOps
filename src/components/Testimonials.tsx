@@ -3,7 +3,7 @@ const testimonials = [
     initials: 'SL',
     name: 'Sandra L.',
     role: 'Probate Attorney, Los Angeles',
-    quote: 'We manage estates with 3–8 properties on a regular basis. Meridian Valuations is the only firm I trust to turn around a coordinated portfolio BPO in time for our court hearings. Accurate, defensible, and always on schedule.',
+    quote: 'We manage estates with 3–8 properties on a regular basis. Sams Valuations is the only firm I trust to turn around a coordinated portfolio BPO in time for our court hearings. Accurate, defensible, and always on schedule.',
   },
   {
     initials: 'MK',
@@ -15,7 +15,7 @@ const testimonials = [
     initials: 'JR',
     name: 'Jennifer R.',
     role: 'Family Law Attorney, Orange County',
-    quote: 'In a contested divorce involving five properties in two counties, Meridian produced clear, neutral valuations that both sides ultimately accepted. That saved my client enormous time and legal fees.',
+    quote: 'In a contested divorce involving five properties in two counties, Sams produced clear, neutral valuations that both sides ultimately accepted. That saved my client enormous time and legal fees.',
   },
   {
     initials: 'DP',
@@ -27,13 +27,13 @@ const testimonials = [
     initials: 'TC',
     name: 'Thomas C.',
     role: 'VP Loss Mitigation, Regional Bank',
-    quote: 'We\'ve used Meridian for bulk REO and pre-foreclosure BPOs across multiple California markets. Their consistency and response time is unmatched. They understand the financial institution side of the business.',
+    quote: 'We\'ve used Sams for bulk REO and pre-foreclosure BPOs across multiple California markets. Their consistency and response time is unmatched. They understand the financial institution side of the business.',
   },
   {
     initials: 'RN',
     name: 'Rachel N.',
     role: 'Professional Conservator, Sacramento',
-    quote: 'My conservatorship clients often hold real property that needs to be carefully valued before any court action. Meridian gives me the independent, documented opinions I need to satisfy the court and protect my clients.',
+    quote: 'My conservatorship clients often hold real property that needs to be carefully valued before any court action. Sams gives me the independent, documented opinions I need to satisfy the court and protect my clients.',
   },
 ]
 
@@ -54,7 +54,7 @@ export default function Testimonials() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((t) => (
             <div key={t.name}
-              className="group card-glass rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 hover:shadow-orange flex flex-col">
+              className="group card-glass rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 hover:shadow-gold flex flex-col">
               <div className="text-brand-400 text-xl tracking-widest mb-5">★★★★★</div>
               <blockquote className="text-slate-300 text-sm leading-relaxed italic flex-1 mb-6">
                 "{t.quote}"

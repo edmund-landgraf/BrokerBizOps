@@ -37,7 +37,7 @@ export default function Contact() {
             <div className="space-y-5">
               {[
                 { icon: Phone, label: 'Phone', value: '(310) 555-0192' },
-                { icon: Mail,  label: 'Email', value: 'valuations@meridianre.com' },
+                { icon: Mail,  label: 'Email', value: 'valuations@samsvaluations.com' },
                 { icon: MapPin,label: 'Service Area', value: 'All California Counties' },
               ].map(({ icon: Icon, label, value }) => (
                 <div key={label} className="flex items-center gap-4">
@@ -55,7 +55,7 @@ export default function Contact() {
             <div className="mt-10 p-5 bg-brand-500/10 border border-brand-500/20 rounded-xl">
               <div className="text-brand-300 font-semibold text-sm mb-1">CA DRE License #01234567</div>
               <div className="text-slate-500 text-xs leading-relaxed">
-                Meridian Valuations is a California Department of Real Estate licensed broker,
+                Sams Valuations is a California Department of Real Estate licensed broker,
                 in good standing since 2004. All BPOs are prepared and signed by the broker of record.
               </div>
             </div>

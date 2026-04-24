@@ -1,5 +1,5 @@
-import { Scale } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import logo from '../assets/sams.png'
 
 const links = {
   Services: [
@@ -32,12 +32,10 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center">
-                <Scale className="w-4 h-4 text-white" />
-              </div>
+            <div className="flex items-center gap-3 mb-4">
+              <img src={logo} alt="Sams Valuations" className="w-10 h-10 object-contain" />
               <span className="font-serif text-xl font-bold text-white">
-                Meridian<span className="text-brand-400"> Valuations</span>
+                Sams<span className="text-brand-400"> Valuations</span>
               </span>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed mb-4">
@@ -63,7 +61,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-600">
-          <span>© {new Date().getFullYear()} Meridian Valuations. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Sams Valuations. All rights reserved.</span>
           <span className="text-center">
             BPOs are not appraisals. Not for use in federally related transactions.
             CA Business & Professions Code §11302.

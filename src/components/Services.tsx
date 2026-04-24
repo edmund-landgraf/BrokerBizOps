@@ -133,7 +133,7 @@ export default function Services() {
                   {vertical.services.map((service, sIndex) => {
                     const ServiceIcon = service.icon
                     return (
-                      <div key={sIndex} id={service.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')} className="card-glass p-8 rounded-2xl flex flex-col hover:-translate-y-1 transition-all duration-300 hover:shadow-orange border border-white/5 scroll-mt-24">
+                      <div key={sIndex} id={service.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')} className="card-glass p-8 rounded-2xl flex flex-col hover:-translate-y-1 transition-all duration-300 hover:shadow-gold border border-white/5 scroll-mt-24">
                         <div className="flex items-center gap-3 mb-4">
                           <div className="w-10 h-10 rounded-lg bg-brand-500/10 border border-brand-500/20 flex items-center justify-center">
                             <ServiceIcon className="w-5 h-5 text-brand-400" />

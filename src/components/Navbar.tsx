@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { Menu, X, Scale } from 'lucide-react'
-
+import { Menu, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import logo from '../assets/sams.png'
 
 const links = [
   { label: 'Services',    href: '/services'    },
@@ -28,12 +28,10 @@ export default function Navbar() {
     }`}>
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center">
-            <Scale className="w-4 h-4 text-white" />
-          </div>
-          <span className="font-serif text-xl font-bold text-white">
-            Meridian<span className="text-brand-400"> Valuations</span>
+        <Link to="/" className="flex items-center gap-3 group">
+          <img src={logo} alt="Sams Valuations" className="w-12 h-12 object-contain" />
+          <span className="font-serif text-2xl font-bold text-white">
+            Sams<span className="text-brand-400"> Valuations</span>
           </span>
         </Link>
 

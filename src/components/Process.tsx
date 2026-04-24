@@ -46,7 +46,7 @@ export default function Process() {
                 {i < steps.length - 1 && (
                   <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-brand-500/40 to-transparent z-10" style={{width: 'calc(100% - 2rem)', left: 'calc(100% - 1rem)'}} />
                 )}
-                <div className="card-glass rounded-2xl p-7 h-full hover:-translate-y-1 transition-all duration-300 hover:shadow-orange">
+                <div className="card-glass rounded-2xl p-7 h-full hover:-translate-y-1 transition-all duration-300 hover:shadow-gold">
                   <div className="flex items-center gap-3 mb-5">
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shrink-0">
                       <Icon className="w-5 h-5 text-white" />
