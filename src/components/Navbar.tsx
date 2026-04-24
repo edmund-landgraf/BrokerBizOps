@@ -10,6 +10,7 @@ const links = [
   { label: 'Process',     href: '/process'     },
   { label: 'Testimonials',href: '/testimonials'},
   { label: 'Client Portal',href: '/portal'     },
+  { label: 'Knowledge Base',href: '/admin/docs'},
 ]
 
 export default function Navbar() {

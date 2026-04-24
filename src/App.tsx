@@ -9,6 +9,7 @@ import ProcessPage     from './pages/ProcessPage'
 import TestimonialsPage from './pages/TestimonialsPage'
 import ContactPage     from './pages/ContactPage'
 import PortalPage      from './pages/PortalPage'
+import AdminDocsPage   from './pages/AdminDocsPage'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/testimonials" element={<TestimonialsPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/portal" element={<PortalPage />} />
+            <Route path="/admin/docs" element={<AdminDocsPage />} />
           </Routes>
         </main>
         <Footer />
