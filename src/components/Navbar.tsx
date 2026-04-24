@@ -9,6 +9,7 @@ const links = [
   { label: 'Why a Broker',href: '/why-broker'  },
   { label: 'Process',     href: '/process'     },
   { label: 'Testimonials',href: '/testimonials'},
+  { label: 'Client Portal',href: '/portal'     },
 ]
 
 export default function Navbar() {

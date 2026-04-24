@@ -89,7 +89,8 @@ export default function WhoWeServe() {
             const Icon = c.icon
             return (
               <div key={c.title}
-                className="group relative bg-gradient-to-br from-slate-900 to-slate-800/60 border border-white/8 rounded-2xl p-8 hover:border-brand-500/40 hover:-translate-y-1 transition-all duration-300 hover:shadow-orange overflow-hidden">
+                id={c.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}
+                className="group relative bg-gradient-to-br from-slate-900 to-slate-800/60 border border-white/8 rounded-2xl p-8 hover:border-brand-500/40 hover:-translate-y-1 transition-all duration-300 hover:shadow-orange overflow-hidden scroll-mt-24">
                 {/* Glow */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-brand-500/5 rounded-full blur-2xl group-hover:bg-brand-500/10 transition-all" />
 

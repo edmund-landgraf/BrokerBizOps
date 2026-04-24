@@ -3,19 +3,19 @@ import { Link } from 'react-router-dom'
 
 const links = {
   Services: [
-    { name: 'Broker Price Opinion', path: '/services' },
-    { name: 'Portfolio Valuation', path: '/services' },
-    { name: 'Litigation Support', path: '/services' },
-    { name: 'Retrospective Valuation', path: '/services' },
-    { name: 'REO Analysis', path: '/services' },
+    { name: 'Broker Price Opinion', path: '/services#broker-price-opinions-bpos' },
+    { name: 'Portfolio Valuation', path: '/services#portfolio-wide-valuations' },
+    { name: 'Litigation Support', path: '/services#expert-witness-testimony' },
+    { name: 'Retrospective Valuation', path: '/services#retrospective-valuations' },
+    { name: 'REO Analysis', path: '/services#reo-disposition-liquidation' },
   ],
   'Who We Serve': [
-    { name: 'Probate Attorneys', path: '/clients' },
-    { name: 'Divorce Attorneys', path: '/clients' },
-    { name: 'Bankruptcy Trustees', path: '/clients' },
-    { name: 'Banks & Lenders', path: '/clients' },
-    { name: 'CPAs & Tax Advisors', path: '/clients' },
-    { name: 'Conservators', path: '/clients' },
+    { name: 'Probate Attorneys', path: '/clients#probate-trust-attorneys' },
+    { name: 'Divorce Attorneys', path: '/clients#divorce-family-law-attorneys' },
+    { name: 'Bankruptcy Trustees', path: '/clients#bankruptcy-trustees-counsel' },
+    { name: 'Banks & Lenders', path: '/clients#banks-lenders-servicers' },
+    { name: 'CPAs & Tax Advisors', path: '/clients#cpas-tax-advisors' },
+    { name: 'Conservators', path: '/clients#conservators-guardians' },
   ],
   Company: [
     { name: 'About Us', path: '/why-broker' },

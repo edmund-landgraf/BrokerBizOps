@@ -8,6 +8,7 @@ import WhyBrokerPage   from './pages/WhyBrokerPage'
 import ProcessPage     from './pages/ProcessPage'
 import TestimonialsPage from './pages/TestimonialsPage'
 import ContactPage     from './pages/ContactPage'
+import PortalPage      from './pages/PortalPage'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/process" element={<ProcessPage />} />
             <Route path="/testimonials" element={<TestimonialsPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/portal" element={<PortalPage />} />
           </Routes>
         </main>
         <Footer />
