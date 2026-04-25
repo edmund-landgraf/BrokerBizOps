@@ -12,7 +12,8 @@ import PortalPage      from './pages/PortalPage'
 import AdminDocsPage   from './pages/AdminDocsPage'
 import AdminInboxPage  from './pages/AdminInboxPage'
 import RatesPage       from './pages/RatesPage'
-import AdminButton        from './components/AdminButton'
+import CheckoutPage    from './pages/CheckoutPage'
+import AdminButton     from './components/AdminButton'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/admin/docs" element={<AdminDocsPage />} />
             <Route path="/admin/inbox" element={<AdminInboxPage />} />
             <Route path="/rates" element={<RatesPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
           </Routes>
         </main>
         <Footer />

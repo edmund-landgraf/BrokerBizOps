@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
-import { CheckCircle2, Phone, ArrowRight, FileText, Scale, ShieldCheck } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { CheckCircle2, Phone, ArrowRight, FileText, Scale, ShieldCheck, CreditCard } from 'lucide-react'
 
 const valuationRates = [
   { service: 'Residential BPO', rate: '$50 – $150', unit: 'Per Report', description: 'Standard broker price opinion for loan monitoring and probate.' },
@@ -84,8 +85,21 @@ export default function RatesPage() {
                         <div className="text-sm text-slate-500">{item.description}</div>
                       </td>
                       <td className="py-6">
-                        <div className="text-xl font-serif font-bold text-brand-500">{item.rate}</div>
-                        <div className="text-xs text-slate-600">{item.unit}</div>
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                          <div>
+                            <div className="text-xl font-serif font-bold text-brand-500">{item.rate}</div>
+                            <div className="text-xs text-slate-600">{item.unit}</div>
+                          </div>
+                          {item.service !== 'Rush Service (72hr)' && (
+                            <Link 
+                              to="/checkout" 
+                              className="px-6 py-2 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-bold uppercase tracking-widest hover:bg-brand-500 hover:text-slate-950 transition-all flex items-center gap-2 whitespace-nowrap"
+                            >
+                              <CreditCard className="w-3.5 h-3.5" />
+                              Order Report
+                            </Link>
+                          )}
+                        </div>
                       </td>
                     </tr>
                   ))}
