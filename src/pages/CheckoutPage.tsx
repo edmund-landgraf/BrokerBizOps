@@ -1,7 +1,7 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ShieldCheck, Lock, CreditCard, CheckCircle2, AlertCircle, ArrowLeft, FileText, ChevronRight } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { ShieldCheck, Lock, CreditCard, CheckCircle2, AlertCircle, ArrowLeft, FileText, ChevronRight, Download } from 'lucide-react'
+import { Link, useLocation } from 'react-router-dom'
 
 const ELIGIBLE_SERVICES = [
   { id: 'res-bpo', name: 'Residential BPO', price: 150, description: 'Standard broker price opinion report' },
@@ -10,14 +10,24 @@ const ELIGIBLE_SERVICES = [
 ]
 
 export default function CheckoutPage() {
-  const [selectedServiceId, setSelectedServiceId] = useState(ELIGIBLE_SERVICES[0].id)
+  const location = useLocation()
+  const portalOrder = location.state as { address: string; type: string; id: string } | null
+
+  const [selectedServiceId, setSelectedServiceId] = useState(() => {
+    if (portalOrder) {
+      const found = ELIGIBLE_SERVICES.find(s => s.name.toLowerCase().includes(portalOrder.type.toLowerCase()))
+      return found ? found.id : ELIGIBLE_SERVICES[0].id
+    }
+    return ELIGIBLE_SERVICES[0].id
+  })
+
   const [isRush, setIsRush] = useState(false)
   const [step, setStep] = useState(1) // 1: Details, 2: Payment, 3: Success
   const [form, setForm] = useState({
     name: '',
     email: '',
-    matter: '',
-    address: '',
+    matter: portalOrder?.id || '',
+    address: portalOrder?.address || '',
     cardName: '',
     cardNumber: '',
     expiry: '',
@@ -57,12 +67,18 @@ export default function CheckoutPage() {
           </div>
           <h2 className="text-3xl font-serif font-bold text-white mb-4">Payment Successful</h2>
           <p className="text-slate-400 mb-8">
-            Your order for <strong>{selectedService.name}</strong> has been received. 
-            A confirmation and receipt have been sent to <strong>{form.email}</strong>.
+            Your report for <strong>{form.address || 'the property'}</strong> is now available for download.
           </p>
-          <Link to="/" className="btn-primary w-full justify-center">
-            Return to Dashboard
-          </Link>
+          
+          <div className="space-y-4">
+            <button className="w-full btn-primary justify-center py-4 text-base bg-emerald-600 hover:bg-emerald-500 border-emerald-500/50">
+              <Download className="w-5 h-5" />
+              Download Final Report
+            </button>
+            <Link to="/portal" className="block text-slate-500 hover:text-white text-sm font-bold uppercase tracking-widest transition-colors pt-4">
+              Return to Portal
+            </Link>
+          </div>
         </motion.div>
       </div>
     )
@@ -72,10 +88,12 @@ export default function CheckoutPage() {
     <div className="pt-24 min-h-screen bg-slate-950 pb-20">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center gap-4 mb-12">
-          <Link to="/rates" className="text-slate-500 hover:text-white transition-colors">
+          <Link to={portalOrder ? "/portal" : "/rates"} className="text-slate-500 hover:text-white transition-colors">
             <ArrowLeft className="w-5 h-5" />
           </Link>
-          <h1 className="text-3xl font-serif font-bold text-white">Secure Checkout</h1>
+          <h1 className="text-3xl font-serif font-bold text-white">
+            {portalOrder ? 'Finalize Report Download' : 'Secure Checkout'}
+          </h1>
         </div>
 
         <div className="grid lg:grid-cols-5 gap-12 items-start">
@@ -90,17 +108,18 @@ export default function CheckoutPage() {
                 >
                   <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
                     <FileText className="w-5 h-5 text-brand-500" />
-                    Order Details
+                    {portalOrder ? `Invoice for ${portalOrder.id}` : 'Order Details'}
                   </h2>
                   
                   <div className="space-y-6">
                     <div>
-                      <label className="block text-slate-500 text-xs uppercase tracking-widest mb-3">Select Report Type</label>
+                      <label className="block text-slate-500 text-xs uppercase tracking-widest mb-3">Service Type</label>
                       <select 
                         name="serviceId" 
                         value={selectedServiceId}
                         onChange={(e) => setSelectedServiceId(e.target.value)}
-                        className="w-full bg-slate-800/60 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-brand-500 appearance-none transition-colors"
+                        disabled={!!portalOrder}
+                        className="w-full bg-slate-800/60 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-brand-500 appearance-none transition-colors disabled:opacity-50"
                       >
                         {ELIGIBLE_SERVICES.map(s => (
                           <option key={s.id} value={s.id}>{s.name} — ${s.price}</option>
@@ -128,36 +147,61 @@ export default function CheckoutPage() {
                     </div>
 
                     <div>
-                      <label className="block text-slate-500 text-xs uppercase tracking-widest mb-3">Subject Property Address *</label>
+                      <label className="block text-slate-500 text-xs uppercase tracking-widest mb-3">Property Address *</label>
                       <input 
                         required name="address" value={form.address} onChange={handleInputChange}
-                        className="w-full bg-slate-800/60 border border-white/10 rounded-xl px-4 py-4 text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 transition-colors"
+                        readOnly={!!portalOrder}
+                        className="w-full bg-slate-800/60 border border-white/10 rounded-xl px-4 py-4 text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 transition-colors read-only:opacity-70"
                         placeholder="123 Legal Way, Los Angeles, CA 90001"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-slate-500 text-xs uppercase tracking-widest mb-3">Matter / Case Number (Optional)</label>
+                      <label className="block text-slate-500 text-xs uppercase tracking-widest mb-3">Matter / Order ID</label>
                       <input 
                         name="matter" value={form.matter} onChange={handleInputChange}
-                        className="w-full bg-slate-800/60 border border-white/10 rounded-xl px-4 py-4 text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 transition-colors"
+                        readOnly={!!portalOrder}
+                        className="w-full bg-slate-800/60 border border-white/10 rounded-xl px-4 py-4 text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 transition-colors read-only:opacity-70"
                         placeholder="Estate of John Smith / BP123456"
                       />
                     </div>
 
-                    <div className="flex items-center gap-4 p-4 rounded-2xl bg-brand-500/5 border border-brand-500/10">
-                      <input 
-                        type="checkbox" id="rush" checked={isRush} onChange={(e) => setIsRush(e.target.checked)}
-                        className="w-5 h-5 accent-brand-500"
-                      />
-                      <label htmlFor="rush" className="text-slate-300 text-sm font-medium cursor-pointer">
-                        Add Rush Service (72-hour turnaround) — <span className="text-brand-400">+$ {rushFee}</span>
-                      </label>
-                    </div>
+                    {!portalOrder && (
+                      <div className="flex items-center gap-4 p-4 rounded-2xl bg-brand-500/5 border border-brand-500/10">
+                        <input 
+                          type="checkbox" id="rush" checked={isRush} onChange={(e) => setIsRush(e.target.checked)}
+                          className="w-5 h-5 accent-brand-500"
+                        />
+                        <label htmlFor="rush" className="text-slate-300 text-sm font-medium cursor-pointer">
+                          Add Rush Service (72-hour turnaround) — <span className="text-brand-400">+$ {rushFee}</span>
+                        </label>
+                      </div>
+                    )}
 
                     <button type="submit" className="btn-primary w-full justify-center py-5 text-lg">
                       Continue to Payment
                       <ChevronRight className="w-5 h-5" />
+                    </button>
+
+                    <button 
+                      type="button"
+                      onClick={() => {
+                        setForm({
+                          ...form,
+                          name: form.name || 'Sarah Jenkins',
+                          email: form.email || 'sarah@lawfirm.com',
+                          cardName: 'Sarah Jenkins',
+                          cardNumber: '4242 4242 4242 4242',
+                          expiry: '12 / 28',
+                          cvc: '123',
+                          zip: '90210'
+                        })
+                        setStep(2)
+                      }}
+                      className="w-full py-4 rounded-xl border border-white/5 text-slate-500 text-xs font-bold uppercase tracking-widest hover:bg-white/5 hover:text-slate-300 transition-all flex items-center justify-center gap-2"
+                    >
+                      <ShieldCheck className="w-4 h-4" />
+                      Continue to Test Payment (Demo Mode)
                     </button>
                   </div>
                 </motion.div>
@@ -231,7 +275,7 @@ export default function CheckoutPage() {
                       </button>
                       <button type="submit" className="flex-[2] btn-primary justify-center py-5 text-lg">
                         <Lock className="w-5 h-5" />
-                        Pay ${total} Securely
+                        Pay ${total} & Download
                       </button>
                     </div>
 
@@ -277,7 +321,7 @@ export default function CheckoutPage() {
                   <Lock className="w-3 h-3" />
                   Secure Transaction
                 </div>
-                Your payment is processed through a secure PCI-compliant gateway. Sams Valuations never stores your credit card details.
+                Your report will be available for immediate download after successful payment authorization.
               </div>
             </div>
 
@@ -286,14 +330,10 @@ export default function CheckoutPage() {
               <div className="flex items-start gap-4">
                 <AlertCircle className="w-6 h-6 text-brand-500 shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-white font-bold mb-2">Complex Services</h3>
+                  <h3 className="text-white font-bold mb-2">Notice</h3>
                   <p className="text-xs text-slate-500 leading-relaxed">
-                    <strong>Expert Witness</strong>, <strong>Receivership</strong>, and <strong>Partition Referee</strong> services 
-                    cannot be paid via this screen. These require signed engagement letters and separate invoicing.
+                    Once a report is paid and downloaded, all fees are non-refundable due to the digital nature of the deliverable.
                   </p>
-                  <Link to="/contact" className="inline-block mt-4 text-[10px] font-bold text-brand-400 uppercase tracking-widest hover:text-brand-300 transition-colors">
-                    Request Custom Quote →
-                  </Link>
                 </div>
               </div>
             </div>

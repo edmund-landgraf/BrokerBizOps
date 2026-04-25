@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { FileText, Download, CheckCircle, Clock, AlertCircle, Search, LogOut } from 'lucide-react'
 
 interface PortalDashboardProps {
@@ -100,9 +101,17 @@ export default function PortalDashboard({ onLogout }: PortalDashboardProps) {
                   </td>
                   <td className="px-6 py-5 whitespace-nowrap text-right">
                     {order.status === 'Completed' ? (
-                      <button className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-brand-500/10 text-brand-400 hover:bg-brand-500 hover:text-white transition-all">
+                      <Link 
+                        to="/checkout" 
+                        state={{ 
+                          address: order.address, 
+                          type: order.type,
+                          id: order.id 
+                        }}
+                        className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-brand-500/10 text-brand-400 hover:bg-brand-500 hover:text-slate-950 transition-all shadow-lg hover:shadow-brand-500/20"
+                      >
                         <Download className="w-4 h-4" />
-                      </button>
+                      </Link>
                     ) : (
                       <span className="text-slate-600 text-xs italic">Not ready</span>
                     )}
