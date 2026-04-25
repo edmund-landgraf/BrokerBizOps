@@ -1,17 +1,30 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FileText, Download, CheckCircle, Clock, AlertCircle, Search, LogOut } from 'lucide-react'
+import { FileText, Download, CheckCircle, Clock, AlertCircle, Search, LogOut, Eye, X, Shield, BarChart3, FileSearch } from 'lucide-react'
 
 interface PortalDashboardProps {
   onLogout: () => void
 }
 
 const mockOrders = [
-  { id: 'VAL-2026-089', address: '1234 Willow Tree Lane, Los Angeles, CA', type: 'Broker Price Opinion', status: 'Completed', date: 'Oct 15, 2026' },
+  { 
+    id: 'VAL-2026-089', 
+    address: '1234 Willow Tree Lane, Los Angeles, CA', 
+    type: 'Broker Price Opinion', 
+    status: 'Completed', 
+    date: 'Oct 15, 2026',
+    summary: 'Comprehensive 14-page Broker Price Opinion. Includes comparative market analysis (CMA) of 6 nearby properties, local absorption rates, and suggested list price vs. quick-sale liquidation value.',
+    keyFindings: ['Valuation Range: $1.2M - $1.35M', 'Recommended Repair Credit: $15k', 'Days on Market Projection: 22 Days'],
+    previewSnippet: 'Subject property demonstrates superior curb appeal compared to 85% of active inventory in the 90049 zip code. Internal inspection reveals updated kitchen (2022) but original plumbing in secondary baths...'
+  },
   { id: 'VAL-2026-092', address: '8855 Sunset Blvd, West Hollywood, CA', type: 'Portfolio Valuation', status: 'In Progress', date: 'Oct 20, 2026' },
   { id: 'VAL-2026-094', address: '4500 Ocean Front Walk, Venice, CA', type: 'Retrospective Valuation', status: 'Pending Review', date: 'Oct 22, 2026' },
 ]
 
 export default function PortalDashboard({ onLogout }: PortalDashboardProps) {
+  const [search, setSearch] = useState('')
+  const [previewOrder, setPreviewOrder] = useState<any>(null)
+
   const getStatusBadge = (status: string) => {
     switch(status) {
       case 'Completed':
@@ -58,7 +71,6 @@ export default function PortalDashboard({ onLogout }: PortalDashboardProps) {
 
       {/* Main Content Area */}
       <div className="card-glass rounded-3xl border border-white/5 overflow-hidden">
-        {/* Table Header/Toolbar */}
         <div className="p-6 border-b border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900/50">
           <h3 className="text-lg font-bold text-white">Recent Orders</h3>
           <div className="relative w-full sm:w-auto">
@@ -66,12 +78,13 @@ export default function PortalDashboard({ onLogout }: PortalDashboardProps) {
             <input 
               type="text" 
               placeholder="Search by address or ID..." 
+              value={search}
+              onChange={e => setSearch(e.target.value)}
               className="w-full sm:w-64 bg-slate-950 border border-slate-800 rounded-lg py-2 pl-10 pr-4 text-sm text-white focus:outline-none focus:border-brand-500 transition-colors"
             />
           </div>
         </div>
 
-        {/* Table */}
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
@@ -80,11 +93,11 @@ export default function PortalDashboard({ onLogout }: PortalDashboardProps) {
                 <th className="px-6 py-4">Property Address</th>
                 <th className="px-6 py-4">Service Type</th>
                 <th className="px-6 py-4">Status</th>
-                <th className="px-6 py-4 text-right">Documents</th>
+                <th className="px-6 py-4 text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/50">
-              {mockOrders.map((order) => (
+              {mockOrders.filter(o => o.address.toLowerCase().includes(search.toLowerCase()) || o.id.toLowerCase().includes(search.toLowerCase())).map((order) => (
                 <tr key={order.id} className="hover:bg-slate-800/20 transition-colors group">
                   <td className="px-6 py-5 whitespace-nowrap">
                     <span className="font-mono text-xs text-brand-400 bg-brand-500/10 px-2 py-1 rounded">{order.id}</span>
@@ -100,21 +113,29 @@ export default function PortalDashboard({ onLogout }: PortalDashboardProps) {
                     {getStatusBadge(order.status)}
                   </td>
                   <td className="px-6 py-5 whitespace-nowrap text-right">
-                    {order.status === 'Completed' ? (
-                      <Link 
-                        to="/checkout" 
-                        state={{ 
-                          address: order.address, 
-                          type: order.type,
-                          id: order.id 
-                        }}
-                        className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-brand-500/10 text-brand-400 hover:bg-brand-500 hover:text-slate-950 transition-all shadow-lg hover:shadow-brand-500/20"
-                      >
-                        <Download className="w-4 h-4" />
-                      </Link>
-                    ) : (
-                      <span className="text-slate-600 text-xs italic">Not ready</span>
-                    )}
+                    <div className="flex items-center justify-end gap-3">
+                      {order.status === 'Completed' ? (
+                        <>
+                          <button 
+                            onClick={() => setPreviewOrder(order)}
+                            className="w-8 h-8 rounded-full flex items-center justify-center bg-slate-800 text-slate-400 hover:text-white transition-colors"
+                            title="Preview Summary"
+                          >
+                            <Eye className="w-4 h-4" />
+                          </button>
+                          <Link 
+                            to="/checkout" 
+                            state={{ address: order.address, type: order.type, id: order.id }}
+                            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-brand-500/10 text-brand-400 hover:bg-brand-500 hover:text-slate-950 transition-all shadow-lg hover:shadow-brand-500/20"
+                            title="Pay & Download"
+                          >
+                            <Download className="w-4 h-4" />
+                          </Link>
+                        </>
+                      ) : (
+                        <span className="text-slate-600 text-xs italic">Not ready</span>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -122,6 +143,72 @@ export default function PortalDashboard({ onLogout }: PortalDashboardProps) {
           </table>
         </div>
       </div>
+
+      {/* Preview Modal */}
+      {previewOrder && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 backdrop-blur-sm bg-slate-950/60">
+          <div className="max-w-2xl w-full bg-slate-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl animate-fade-up">
+            <div className="p-8 border-b border-white/5 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Shield className="w-5 h-5 text-brand-500" />
+                <h4 className="text-xl font-serif font-bold text-white">Document Executive Summary</h4>
+              </div>
+              <button onClick={() => setPreviewOrder(null)} className="text-slate-500 hover:text-white transition-colors">
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            
+            <div className="p-8 space-y-8">
+              <div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2">Report Summary</div>
+                <p className="text-slate-300 leading-relaxed">{previewOrder.summary}</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="p-5 rounded-2xl bg-slate-950 border border-white/5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <BarChart3 className="w-4 h-4 text-brand-400" />
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Key Deliverables</span>
+                  </div>
+                  <ul className="space-y-2">
+                    {previewOrder.keyFindings?.map((f: string, i: number) => (
+                      <li key={i} className="text-xs text-slate-400 flex items-center gap-2">
+                        <CheckCircle className="w-3 h-3 text-emerald-500" /> {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="p-5 rounded-2xl bg-slate-950 border border-white/5 relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-white/5 -rotate-12 scale-150">CONFIDENTIAL</span>
+                  </div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <FileSearch className="w-4 h-4 text-brand-400" />
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Content Snippet</span>
+                  </div>
+                  <p className="text-[10px] leading-relaxed text-slate-500 italic blur-[0.5px]">
+                    {previewOrder.previewSnippet}
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-4 flex flex-col sm:flex-row gap-4">
+                <Link 
+                  to="/checkout" 
+                  state={{ address: previewOrder.address, type: previewOrder.type, id: previewOrder.id }}
+                  className="flex-1 btn-primary justify-center py-4"
+                >
+                  Pay & Download Report
+                </Link>
+                <button onClick={() => setPreviewOrder(null)} className="btn-outline justify-center py-4">
+                  Close Preview
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
+
