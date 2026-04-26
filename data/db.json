@@ -16,5 +16,49 @@
       "description": "High-quality BPO document filler via DocHub.",
       "addedAt": "2026-04-25T22:51:15Z"
     }
+  ],
+  "samples": [
+    {
+      "id": "sample-bpo-smith",
+      "broker": "Richard Keith Smith",
+      "office": "678-487-1684",
+      "email": "rksmithrealty@gmail.com",
+      "preparedFor": "Jim and Mary Buyerton (Cell: 404-663-5154)",
+      "subject": {
+        "address": "123 Any ST, Conyers, GA",
+        "proximity": "Grandview Estates",
+        "gla": 1834,
+        "age": 20,
+        "condition": "avg",
+        "rooms": "7t/3bd/2ba"
+      },
+      "comparables": [
+        {
+          "address": "242 Pleasant DR",
+          "proximity": "1.4 miles",
+          "price": 177000,
+          "dom": 31,
+          "netAdjustment": -23300,
+          "indicatedValue": 153700
+        },
+        {
+          "address": "456 Great LN",
+          "proximity": "0.6 miles",
+          "price": 178900,
+          "dom": 21,
+          "netAdjustment": -23400,
+          "indicatedValue": 155500
+        },
+        {
+          "address": "785 Meadow CT",
+          "proximity": "0.4 miles",
+          "price": 150000,
+          "dom": 40,
+          "netAdjustment": 2520,
+          "indicatedValue": 152520
+        }
+      ],
+      "addedAt": "2026-04-25T22:53:00Z"
+    }
   ]
 }

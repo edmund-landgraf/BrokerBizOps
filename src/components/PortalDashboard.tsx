@@ -1,12 +1,24 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FileText, Download, CheckCircle, Clock, AlertCircle, Search, LogOut, Eye, X, Shield, BarChart3, FileSearch } from 'lucide-react'
+import { generateSamplePDF } from '../utils/generateSamplePDF'
 
 interface PortalDashboardProps {
   onLogout: () => void
 }
 
 const mockOrders = [
+  {
+    id: 'SAMS-SAMPLE-001',
+    address: '742 Evergreen Terrace, Springfield, CA',
+    type: 'Broker Price Opinion',
+    status: 'Completed',
+    date: 'Jan 01, 2026',
+    isFree: true,
+    summary: 'OFFICIAL SAMS VALUATIONS SAMPLE: This document demonstrates our proprietary BPO methodology. It includes high-fidelity data on subject property assets, neutral market positioning, and court-defensible comparative analysis.',
+    keyFindings: ['Sample Valuation: $850,000', 'Marketing Time: < 30 Days', 'Proprietary B2B Logic Applied'],
+    previewSnippet: 'SAMS VALUATIONS INTERNAL ANALYSIS: Subject property shows consistent maintenance history with 2024 roof certification. Comps 1-3 provide tight $15k variance, establishing a highly reliable price floor for probate inventory purposes...'
+  },
   { 
     id: 'VAL-2026-089', 
     address: '1234 Willow Tree Lane, Los Angeles, CA', 
@@ -98,12 +110,21 @@ export default function PortalDashboard({ onLogout }: PortalDashboardProps) {
             </thead>
             <tbody className="divide-y divide-slate-800/50">
               {mockOrders.filter(o => o.address.toLowerCase().includes(search.toLowerCase()) || o.id.toLowerCase().includes(search.toLowerCase())).map((order) => (
-                <tr key={order.id} className="hover:bg-slate-800/20 transition-colors group">
+                <tr key={order.id} className={`hover:bg-slate-800/20 transition-colors group ${order.isFree ? 'bg-brand-500/5' : ''}`}>
                   <td className="px-6 py-5 whitespace-nowrap">
-                    <span className="font-mono text-xs text-brand-400 bg-brand-500/10 px-2 py-1 rounded">{order.id}</span>
+                    <span className={`font-mono text-xs px-2 py-1 rounded ${
+                      order.isFree 
+                        ? 'text-slate-950 bg-brand-500 shadow-gold font-bold animate-pulse' 
+                        : 'text-brand-400 bg-brand-500/10'
+                    }`}>
+                      {order.id}
+                    </span>
                   </td>
                   <td className="px-6 py-5">
-                    <div className="text-sm font-medium text-white">{order.address}</div>
+                    <div className="text-sm font-medium text-white">
+                      {order.address}
+                      {order.isFree && <span className="ml-2 text-[10px] text-brand-500 font-bold uppercase tracking-widest">Free Sample</span>}
+                    </div>
                     <div className="text-xs text-slate-500 mt-1">Requested {order.date}</div>
                   </td>
                   <td className="px-6 py-5 whitespace-nowrap text-sm text-slate-300">
@@ -123,14 +144,33 @@ export default function PortalDashboard({ onLogout }: PortalDashboardProps) {
                           >
                             <Eye className="w-4 h-4" />
                           </button>
-                          <Link 
-                            to="/checkout" 
-                            state={{ address: order.address, type: order.type, id: order.id }}
-                            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-brand-500/10 text-brand-400 hover:bg-brand-500 hover:text-slate-950 transition-all shadow-lg hover:shadow-brand-500/20"
-                            title="Pay & Download"
-                          >
-                            <Download className="w-4 h-4" />
-                          </Link>
+                          {order.isFree ? (
+                            <div className="flex items-center gap-2">
+                              <button 
+                                className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-brand-400 transition-all"
+                                title="Open PDF Viewer"
+                                onClick={() => generateSamplePDF(order, 'view')}
+                              >
+                                <FileSearch className="w-4 h-4" />
+                              </button>
+                              <button 
+                                className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition-all shadow-lg shadow-emerald-500/20"
+                                title="Download Official Report"
+                                onClick={() => generateSamplePDF(order, 'save')}
+                              >
+                                <Download className="w-4 h-4" />
+                              </button>
+                            </div>
+                          ) : (
+                            <Link 
+                              to="/checkout" 
+                              state={{ address: order.address, type: order.type, id: order.id }}
+                              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-brand-500/10 text-brand-400 hover:bg-brand-500 hover:text-slate-950 transition-all shadow-lg hover:shadow-brand-500/20"
+                              title="Pay & Download"
+                            >
+                              <Download className="w-4 h-4" />
+                            </Link>
+                          )}
                         </>
                       ) : (
                         <span className="text-slate-600 text-xs italic">Not ready</span>
