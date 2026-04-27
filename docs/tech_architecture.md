@@ -75,6 +75,7 @@ Rather than a traditional SQL database, the prototype utilizes a **Local I/O Per
 - **Fiduciary SOPs**: Detailed standards for court-defensible BPOs. See [BPO SOP Guide](file:///d:/repos/BrokerBizOps/docs/bpo_sop_fiduciary.md).
 - **Legal Frameworks**: Templates and clauses for complex service contracts. See [Engagement Letter Framework](file:///d:/repos/BrokerBizOps/docs/engagement_letter_framework.md).
 - **Local SEO dominance**: Strategy for ranking in high-value legal search niches. See [Local SEO & GMB Strategy](file:///d:/repos/BrokerBizOps/docs/local_seo_gmb_strategy.md).
+- **Security & HTTPS**: Guide for installing and maintaining SSL certificates. See [SSL Installation Guide](file:///d:/repos/BrokerBizOps/docs/ssl_installation_guide.md).
 - **Database Migration**: The middleware pattern is designed for easy replacement with a standard Express server and a DB adapter (Prisma/TypeORM).
 - **AdWords Integration**: Documentation for the AdWords strategy is stored natively within the KB to allow for future automated landing page generation based on target keywords.
 - **Real PDF Storage**: Moving from client-side generation to server-side (Puppeteer/Node-PDF) for background report delivery.
